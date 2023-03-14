@@ -111,4 +111,24 @@ public class IbusinessImpl implements Ibusiness {
 	public Category readOneCategory(int id) {
 		return categoryDao.read(id);
 	}
+
+	public ArrayList<Formation> KeywordFormationInName(String searchName) {
+		ArrayList<Formation> formations = new ArrayList<Formation>();
+		ArrayList<Formation> formationsTrue = new ArrayList<Formation>();
+		formations = formationDao.readAll();
+		for(Formation form : formations)
+			if((form.getNameFormation().toLowerCase()).contains(searchName.toLowerCase()))
+				formationsTrue.add(form);
+		return formationsTrue;	
+	}
+
+	public ArrayList<Formation> KeywordFormationInDescription(String searchName) {
+		ArrayList<Formation> formations = new ArrayList<Formation>();
+		ArrayList<Formation> formationsTrue = new ArrayList<Formation>();
+		formations = formationDao.readAll();
+		for(Formation form : formations)
+			if((form.getDescription().toLowerCase()).contains(searchName.toLowerCase()))
+				formationsTrue.add(form);
+		return formationsTrue;	
+	}
 }

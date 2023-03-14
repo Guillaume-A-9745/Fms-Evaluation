@@ -31,9 +31,9 @@ public class FormationDao implements Dao<Formation> {
 	@Override
 	public Formation read(int id) {
 		try (Statement statement = connection.createStatement()){
-			String str = "SELECT * FROM T_Formations where IdArticle=" + id + ";";									
+			String str = "SELECT * FROM T_Formations where IdFormation=" + id + ";";									
 			ResultSet rs = statement.executeQuery(str);
-			if(rs.next()) return new Formation(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4) , rs.getBoolean(5), rs.getBoolean(6), rs.getDouble(6), rs.getInt(7));
+			if(rs.next()) return new Formation(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4) , rs.getBoolean(5), rs.getBoolean(6), rs.getDouble(7), rs.getInt(8));
 		} catch (SQLException e) {
 			logger.severe("pb sql sur la lecture d'une formation " + e.getMessage());
 		} 	
