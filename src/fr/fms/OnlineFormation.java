@@ -43,12 +43,13 @@ public class OnlineFormation {
 	private static final String COLUMN_PRICE = "PRIX";
 	private static final String COLUMN_FACETOFACE = "PRESENTIEL";
 	private static final String COLUMN_DISTANCIAL = "DISTANCIEL";
+	private static final String COLUMN_CATEGORY = "CATEGORIE";
 	private static final String COLUMN_QUANTITY = "QUANTITE";
 
 	public static void main(String[] args) {
-		System.out.println(ANSI_CYAN_BACKGROUND + ANSI_GREEN + "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
-		System.out.println(ANSI_RED+ "\t\t\t---------------Bonjour et bienvenu sur le site Online-Formation, voici la liste de nos formations acuellement disponible---------------\t\t\t");
-		System.out.println(ANSI_GREEN + "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" + ANSI_RESET);
+		System.out.println(ANSI_CYAN_BACKGROUND + ANSI_GREEN + "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ");
+		System.out.println(ANSI_RED+ "---------------------------------------------   Bonjour et bienvenu sur le site Online-Formation, voici la liste de nos formations acuellement disponible   ----------------------------------------------");
+		System.out.println(ANSI_GREEN + "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - " + ANSI_RESET);
 		displayFormations();
 		int choice = 0;
 		while(choice != 10) {
@@ -75,7 +76,7 @@ public class OnlineFormation {
 					break;
 				case 10 : System.out.println("à bientôt sur notre site :)");
 					break;	
-				case 11 : displayMenuChoiceAdmin();
+				case 11 : displayMenuChoiceAdmin();  	//TODO
 					break;
 				default : System.out.println("veuillez saisir une valeur entre 1 et 10");
 			}
@@ -87,10 +88,10 @@ public class OnlineFormation {
 	 */
 	public static void displayFormations() { 
 		System.out.print(ANSI_BLACK_BACKGROUND + ANSI_WHITE);
-		System.out.printf("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------%n");
-		System.out.printf("%-10s | %-30s | %-10s | %-70s | %-10s | %-10s | %-10s  %n",COLUMN_ID,COLUMN_NAME,COLUMN_DURATION,COLUMN_DESCRIPTION,COLUMN_PRICE,COLUMN_FACETOFACE,COLUMN_DISTANCIAL);
-		System.out.printf("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------%n");
-		business.readFormations().forEach( a -> System.out.printf("%-10s | %-30s | %-10s | %-70s | %-10s | %-10s | %-10s %n",a.getIdFormation(),a.getNameFormation(),a.getDuration(),a.getDescription(), a.getUnitaryPrice(),a.isFaceToFace(),a.isDistancial()));
+		System.out.printf("----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------%n");
+		System.out.printf("%-10s | %-30s | %-10s | %-70s | %-10s | %-10s | %-10s | %-30s  %n",COLUMN_ID,COLUMN_NAME,COLUMN_DURATION,COLUMN_DESCRIPTION,COLUMN_PRICE,COLUMN_FACETOFACE,COLUMN_DISTANCIAL,COLUMN_CATEGORY);
+		System.out.printf("----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------%n");
+		business.readFormationsCategory().forEach( a -> System.out.printf("%-10s | %-30s | %-10s | %-70s | %-10s | %-10s | %-10s | %-30s %n",a.getIdFormation(),a.getNameFormation(),a.getDuration(),a.getDescription(), a.getUnitaryPrice(),a.isFaceToFace(),a.isDistancial(), a.getNameCategory()));
 		System.out.print(ANSI_RESET);
 	}
 
@@ -419,7 +420,7 @@ public class OnlineFormation {
 					break;
 				case 3 : updateFormation();
 					break;
-				case 4 : 
+				case 4 : //TODO
 					break;
 				case 5 : System.out.println("Retour au menu administration");
 					break;
@@ -434,9 +435,9 @@ public class OnlineFormation {
 	public static void displayMenuFormations() {	
 		System.out.println("\n" + "Pour réaliser une action, tapez le code correspondant");
 		System.out.println("1 : Voir toutes les formations de la base de donner");
-		System.out.println("2 : Ajouter une formation à la base de donner");
-		System.out.println("3 : Modifier une formation à la base de donner");
-		System.out.println("4 : Retirer une formation à la base de donner");
+		System.out.println("2 : Ajouter une formation à la base de donner");  
+		System.out.println("3 : Modifier une formation à la base de donner" + ANSI_RED +" ....WORK IN PROGRESS...." + ANSI_RESET); //TODO
+		System.out.println("4 : Retirer une formation à la base de donner" + ANSI_RED +" ....WORK IN PROGRESS...." + ANSI_RESET);  //TODO
 		System.out.println("5 :" + ANSI_RED +" Sortir du menu" + ANSI_RESET);
 	}
 	
@@ -457,17 +458,40 @@ public class OnlineFormation {
 		String Dist = scan.next();
 		System.out.println("Indiquer le prix de la nouvelle formation");
 		double price = scan.nextDouble();
+		System.out.println("Indiquer id de catégorie de la formation");
+		int idCat = scanInt();
 		boolean faceToFace = false;
 		boolean Distancial = false;
 		if(face.equalsIgnoreCase("oui")) faceToFace = true;
 		if(Dist.equalsIgnoreCase("oui")) Distancial = true;
-		Formation form = new Formation(nameForm,Descript,duration,faceToFace,Distancial,price);
+		Formation form = new Formation(nameForm,Descript,duration,faceToFace,Distancial,price,idCat);
 		business.createFormation(form);
 	}
 	public static void updateFormation() {
 		System.out.println("Indiquer l'id de la formation à modifier");
-		int update = scanInt();
-		business.updateFormation(update);
+		int idForm = scanInt();
+		scan.nextLine();
+		System.out.println("Indiquer un nom de formation");
+		String nameForm = scan.nextLine();
+		System.out.println("Indiquer une durée");
+		int duration = scanInt();
+		scan.nextLine();
+		System.out.println("Indiquer une description");
+		String descript = scan.nextLine();
+		System.out.println("Indiquer le prix de la formation");
+		double price = scan.nextDouble();
+		System.out.println("Indiquer si la formation est en présentiel:   oui/non");
+		String face = scan.next();
+		System.out.println("Indiquer si la formation est en distanciel:   oui/non");
+		String dist = scan.next();
+		System.out.println("Indiquer id de catégorie de la formation");
+		int idCat = scanInt();
+		boolean faceToFace = false;
+		boolean distancial = false;
+		if(face.equalsIgnoreCase("oui")) faceToFace = true;
+		if(dist.equalsIgnoreCase("oui")) distancial = true;
+		Formation form = new Formation(idForm,nameForm,descript,duration,faceToFace,distancial,price,idCat);
+		business.updateFormation(form);
 	}
 	
 	/**
@@ -481,11 +505,11 @@ public class OnlineFormation {
 			switch(choicecategory) {
 				case 1 : displayCategories();
 					break;
-				case 2 : 
+				case 2 : //TODO
 					break;
-				case 3 : 
+				case 3 : //TODO
 					break;
-				case 4 : 
+				case 4 : //TODO
 					break;
 				case 5 : System.out.println("Retour au menu administration");
 					break;
@@ -500,9 +524,9 @@ public class OnlineFormation {
 	public static void displayMenuCategories() {	
 		System.out.println("\n" + "Pour réaliser une action, tapez le code correspondant");
 		System.out.println("1 : Voir toutes les catégories de la base de donner");
-		System.out.println("2 : Ajouter une catégorie à la base de donner");
-		System.out.println("3 : Modifier une catégorie à la base de donner");
-		System.out.println("4 : Retirer une catégorie à la base de donner");
+		System.out.println("2 : Ajouter une catégorie à la base de donner" + ANSI_RED +" ....WORK IN PROGRESS...." + ANSI_RESET);	//TODO
+		System.out.println("3 : Modifier une catégorie à la base de donner" + ANSI_RED +" ....WORK IN PROGRESS...." + ANSI_RESET);	//TODO
+		System.out.println("4 : Retirer une catégorie à la base de donner" + ANSI_RED +" ....WORK IN PROGRESS...." + ANSI_RESET);	//TODO
 		System.out.println("5 :" + ANSI_RED +" Sortir du menu" + ANSI_RESET);
 	}
 	
@@ -533,7 +557,7 @@ public class OnlineFormation {
 		System.out.println("\n" + "Pour réaliser une action, tapez le code correspondant");
 		System.out.println("1 : Voir toutes les commandes de la base de donner");
 		System.out.println("2 : Voir le detail d'une commande");	
-		System.out.println("4 :" + ANSI_RED +" Sortir du menu" + ANSI_RESET);
+		System.out.println("3 :" + ANSI_RED +" Sortir du menu" + ANSI_RESET);
 	}
 	
 	/**
@@ -568,13 +592,13 @@ public class OnlineFormation {
 			displayMenuCustomers();
 			choiceUser = scanInt();
 			switch(choiceUser) {
-				case 1 : 
+				case 1 : //TODO
 					break;
-				case 2 : 
+				case 2 : //TODO
 					break;
-				case 3 : 
+				case 3 : //TODO
 					break;
-				case 4 : 
+				case 4 : //TODO
 					break;
 				case 5 : System.out.println("Retour au menu administration");
 					break;
@@ -588,10 +612,10 @@ public class OnlineFormation {
 	 */
 	public static void displayMenuCustomers() {	
 		System.out.println("\n" + "Pour réaliser une action, tapez le code correspondant");
-		System.out.println("1 : Voir toutes les utilisateurs de la base de donner");
-		System.out.println("2 : Ajouter une utilisateur à la base de donner");
-		System.out.println("3 : Modifier une utilisateur à la base de donner");
-		System.out.println("4 : Retirer une utilisateur à la base de donner");
+		System.out.println("1 : Voir toutes les utilisateurs de la base de donner" + ANSI_RED +" ....WORK IN PROGRESS...." + ANSI_RESET);	//TODO
+		System.out.println("2 : Ajouter une utilisateur à la base de donner" + ANSI_RED +" ....WORK IN PROGRESS...." + ANSI_RESET);			//TODO
+		System.out.println("3 : Modifier une utilisateur à la base de donner" + ANSI_RED +" ....WORK IN PROGRESS...." + ANSI_RESET);		//TODO
+		System.out.println("4 : Retirer une utilisateur à la base de donner" + ANSI_RED +" ....WORK IN PROGRESS...." + ANSI_RESET);			//TODO
 		System.out.println("5 :" + ANSI_RED +" Sortir du menu" + ANSI_RESET);
 	}
 

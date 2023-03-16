@@ -14,7 +14,8 @@ public class Formation {
 	private double unitaryPrice;
 	private int idCategory;
 	private int quantity = 1;
-
+	private String nameCategory;
+	
 	public Formation(int idFormation, String nameFormation, String description, int duration, boolean faceToFace, boolean distancial, double unitaryPrice, int idCategory) {
 		this.idFormation = idFormation;
 		this.nameFormation = nameFormation;
@@ -24,6 +25,16 @@ public class Formation {
 		this.distancial = distancial;
 		this.unitaryPrice = unitaryPrice;
 		this.idCategory = idCategory;
+	}
+	public Formation (int idFormation, String nameFormation, String description, int duration, boolean faceToFace, boolean distancial, double unitaryPrice, String nameCategory) {
+		this.idFormation = idFormation;
+		this.nameFormation = nameFormation;
+		this.description = description;
+		this.duration = duration;
+		this.faceToFace = faceToFace;
+		this.distancial = distancial;
+		this.unitaryPrice = unitaryPrice;
+		this.nameCategory = nameCategory;
 	}
 	public Formation(int idFormation, String nameFormation, String description, int duration, boolean faceToFace, boolean distancial, double unitaryPrice) {
 		this.idFormation = idFormation;
@@ -108,6 +119,12 @@ public class Formation {
 		this.quantity = quantity;
 	}
 
+	public String getNameCategory() {
+		return nameCategory;
+	}
+	public void setNameCategory(String nameCategory) {
+		this.nameCategory = nameCategory;
+	}
 	@Override
 	public String toString() {
 		if (faceToFace && !distancial) {

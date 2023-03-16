@@ -34,7 +34,7 @@ public class Test {
 //		formationDao.update(new Formation(26,"Excel", "Excel perfectionnement", 8, true, false, 699, 4));
 //		//supprimer une formation
 //		formationDao.delete(new Formation(23,"Execl", "Execl perfectionnement", 8, true, false, 699, 4));
-		
+		System.out.println(formationDao.readFormationsCategory());
 		
 		System.out.println("'-------------------------------------'");
 		
@@ -47,10 +47,12 @@ public class Test {
 //		//Afficher un seul client
 //		System.out.println(customerDao.read(1));
 //		//Créer un client
-		customerDao.create(new Customer("Valjean", "Jean","jeanjean@palla.fr","010203040506","109 pour la dix",2));
+//		customerDao.create(new Customer("Cesar", "Jules","JulesCesar@palla.fr","010203040506","109 pour la dix",2));
+//		System.out.println(customerDao.read(2));
 //		//modifier un client
-//		//customerDao.update(new Customer("Valjean", "Jean","jeanjean@palla.fr","010203040506","109 pour la dix",2));
-//		//supprimer un client
+//		customerDao.update(new Customer(2,"Cesar", "Jules","JulesCesar@hotmail.fr","010203040506","109 pour la dix",2));
+//		System.out.println(customerDao.read(2));
+//		//supprimer un client TODO
 //		//customerDao.delete(new Customer(2,"Valjean", "Jean","jeanjean@palla.fr","010203040506","109 pour la dix",2));
 		
 		

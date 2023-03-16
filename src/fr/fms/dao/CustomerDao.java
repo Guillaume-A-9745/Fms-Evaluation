@@ -49,7 +49,20 @@ public class CustomerDao implements Dao<Customer> {
 
 	@Override
 	public boolean update(Customer obj) {
-		// TODO Auto-generated method stub
+		String str = "UPDATE T_Customers set Name=?, FirstName=?, Email=?, Phone=?, Address=?, IdUser=? where IdCustomer=?;";	
+		try (PreparedStatement ps = connection.prepareStatement(str)){				
+			ps.setString(1, obj.getName());
+			ps.setString(2, obj.getFirstName());
+			ps.setString(3, obj.getEmail());
+			ps.setString(4, obj.getPhone());
+			ps.setString(5, obj.getAddress());
+			ps.setInt(6, obj.getIdUser());	
+			ps.setInt(7, obj.getIdCustomer());
+			if( ps.executeUpdate() == 1)	return true;
+			return true;
+		} catch (SQLException e) {
+			logger.severe("pb sql sur la mise à jour d'un customer " + e.getMessage());
+		} 	
 		return false;
 	}
 

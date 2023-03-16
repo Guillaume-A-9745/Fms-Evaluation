@@ -53,7 +53,7 @@ public class FormationDao implements Dao<Formation> {
 			ps.setInt(7, obj.getIdCategory());
 			ps.setInt(8, obj.getIdFormation());
 			if( ps.executeUpdate() == 1)	return true;
-			return true;
+			return false;
 		} catch (SQLException e) {
 			logger.severe("pb sql sur la mise à jour d'une formation " + e.getMessage());
 		} 	
@@ -91,6 +91,24 @@ public class FormationDao implements Dao<Formation> {
 		return formations;
 	}
 
+	public ArrayList<Formation> readFormationsCategory() {
+		ArrayList<Formation> formations = new ArrayList<Formation>();
+		String strSql = "SELECT IdFormation, NameFormation, T_Formations.Description, Duration, FaceToFace, Distancial, UnitaryPrice, NameCategory FROM T_Formations INNER JOIN T_Categories ON T_Formations.IdCategory = T_Categories.IdCategory";		
+		try(Statement statement = connection.createStatement()){	
+			try(ResultSet rs = statement.executeQuery(strSql)){ 	
+				while(rs.next()) {		
+					formations.add(new Formation(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4) , rs.getBoolean(5), rs.getBoolean(6), rs.getDouble(7), rs.getString(8)));	
+				}	
+			}
+		} catch (SQLException e) {
+			logger.severe("pb sql sur l'affichage des formations " + e.getMessage());
+		}	
+		catch (Exception e) {
+			logger.severe("pb : " + e.getMessage());
+		}
+		return formations;
+	}
+	
 	public ArrayList<Formation> readAllByCat(int id) {
 		ArrayList<Formation> formations = new ArrayList<Formation>();
 		String strSql = "SELECT * FROM T_Formations where idCategory=" + id;		
