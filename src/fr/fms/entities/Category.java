@@ -14,7 +14,12 @@ public class Category {
 		this.nameCategory = nameCategory;
 		this.description = description;
 	}
-
+	
+	public Category(String nameCategory, String description) {
+		this.nameCategory = nameCategory;
+		this.description = description;
+	}
+	
 	public int getIdCategory() {
 		return idCategory;
 	}

@@ -93,7 +93,7 @@ public class FormationDao implements Dao<Formation> {
 
 	public ArrayList<Formation> readFormationsCategory() {
 		ArrayList<Formation> formations = new ArrayList<Formation>();
-		String strSql = "SELECT * FROM T_Formations INNER JOIN T_Categories ON T_Formations.IdCategory = T_Categories.IdCategory";		
+		String strSql = "SELECT * FROM T_Formations INNER JOIN T_Categories ON T_Formations.IdCategory = T_Categories.IdCategory ORDER BY IdFormation";		
 		try(Statement statement = connection.createStatement()){	
 			try(ResultSet rs = statement.executeQuery(strSql)){ 	
 				while(rs.next()) {		

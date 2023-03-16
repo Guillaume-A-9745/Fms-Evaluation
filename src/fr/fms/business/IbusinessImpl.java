@@ -180,4 +180,27 @@ public class IbusinessImpl implements Ibusiness {
 		formationDao.delete(form);
 		
 	}
+	
+	/**
+	 * Méthode permettant la création d'une nouvelle catégorie
+	 */
+	public void createCategory(Category form) {
+		categoryDao.create(form);
+	}
+
+	/**
+	 * Méthode permettant la modification d'une catégorie
+	 */
+	public void updateCategory(Category form) {
+		categoryDao.update(form);
+		
+	}
+
+	/**
+	 * Méthode permettant la suppresion d'une catégorie
+	 */
+	public void deleteCategory(Category cat) {
+		categoryDao.delete(cat);
+		
+	}
 }

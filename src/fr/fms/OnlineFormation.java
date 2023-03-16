@@ -134,9 +134,9 @@ public class OnlineFormation {
 	 */
 	private static void displayCategories() {
 		System.out.printf("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------%n");
-		System.out.printf("%-10s | %-30s | %-80s | %n",COLUMN_ID,COLUMN_NAME,COLUMN_DESCRIPTION);
+		System.out.printf("%-10s | %-30s | %-90s | %n",COLUMN_ID,COLUMN_NAME,COLUMN_DESCRIPTION);
 		System.out.printf("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------%n");
-		business.readCategories().forEach( a -> System.out.printf("%-10s | %-30s | %-80s | %n",a.getIdCategory(),a.getNameCategory(),a.getDescription()));
+		business.readCategories().forEach( a -> System.out.printf("%-10s | %-30s | %-90s | %n",a.getIdCategory(),a.getNameCategory(),a.getDescription()));
 	}
 
 	/**
@@ -436,8 +436,8 @@ public class OnlineFormation {
 		System.out.println("\n" + "Pour réaliser une action, tapez le code correspondant");
 		System.out.println("1 : Voir toutes les formations de la base de donner");
 		System.out.println("2 : Ajouter une formation à la base de donner");  
-		System.out.println("3 : Modifier une formation à la base de donner" + ANSI_RED +" ....WORK IN PROGRESS...." + ANSI_RESET);
-		System.out.println("4 : Retirer une formation à la base de donner" + ANSI_RED +" ....WORK IN PROGRESS...." + ANSI_RESET);
+		System.out.println("3 : Modifier une formation à la base de donner");
+		System.out.println("4 : Retirer une formation à la base de donner");
 		System.out.println("5 :" + ANSI_RED +" Sortir du menu" + ANSI_RESET);
 	}
 	
@@ -518,11 +518,11 @@ public class OnlineFormation {
 			switch(choicecategory) {
 				case 1 : displayCategories();
 					break;
-				case 2 : //TODO
+				case 2 : createCategory();//TODO
 					break;
-				case 3 : //TODO
+				case 3 : updateCategory();//TODO
 					break;
-				case 4 : //TODO
+				case 4 : deleteCategory();//TODO
 					break;
 				case 5 : System.out.println("Retour au menu administration");
 					break;
@@ -532,7 +532,7 @@ public class OnlineFormation {
 	}
 	
 	/**
-	 * Méthode qui affiche le menu gestion formation
+	 * Méthode qui affiche le menu gestion catégorie
 	 */
 	public static void displayMenuCategories() {	
 		System.out.println("\n" + "Pour réaliser une action, tapez le code correspondant");
@@ -541,6 +541,44 @@ public class OnlineFormation {
 		System.out.println("3 : Modifier une catégorie à la base de donner" + ANSI_RED +" ....WORK IN PROGRESS...." + ANSI_RESET);	//TODO
 		System.out.println("4 : Retirer une catégorie à la base de donner" + ANSI_RED +" ....WORK IN PROGRESS...." + ANSI_RESET);	//TODO
 		System.out.println("5 :" + ANSI_RED +" Sortir du menu" + ANSI_RESET);
+	}
+	
+	/**
+	 * Méthode permettant la création d'une nouvelle catégorie
+	 */
+	public static void createCategory() { 
+		scan.nextLine();
+		System.out.println("Indiquez le nom de la nouvelle catégorie");
+		String nameCat = scan.nextLine();
+		System.out.println("Indiquer une description de la nouvelle catégorie");
+		String Descript = scan.nextLine();
+		Category form = new Category(nameCat,Descript);
+		business.createCategory(form);
+	}
+	
+	/**
+	 * Méthode permettant la modification d'une catégorie
+	 */
+	public static void updateCategory() { 
+		System.out.println("Indiquer l'id de la catégorie à modifier");
+		int idCat = scanInt();
+		scan.nextLine();
+		System.out.println("Indiquez le nom de la catégorie");
+		String nameCat = scan.nextLine();
+		System.out.println("Indiquer une description de la catégorie");
+		String Descript = scan.nextLine();
+		Category form = new Category(idCat, nameCat,Descript);
+		business.updateCategory(form);
+	}
+	
+	/**
+	 * Méthode permettant la suppresion d'une catégorie
+	 */
+	public static void deleteCategory() { 
+		System.out.println("Indiquer l'id de la catégorie à supprimer");
+		int idCat = scanInt();
+		Category cat = new Category(idCat,"","");
+		business.deleteCategory(cat);
 	}
 	
 	/**
@@ -605,13 +643,13 @@ public class OnlineFormation {
 			displayMenuCustomers();
 			choiceUser = scanInt();
 			switch(choiceUser) {
-				case 1 : //TODO
+				case 1 : readCustomer();//TODO
 					break;
-				case 2 : //TODO
+				case 2 : createCustomer();//TODO
 					break;
-				case 3 : //TODO
+				case 3 : updateCustomer();//TODO
 					break;
-				case 4 : //TODO
+				case 4 : deleteCustomer();//TODO
 					break;
 				case 5 : System.out.println("Retour au menu administration");
 					break;
@@ -631,6 +669,32 @@ public class OnlineFormation {
 		System.out.println("4 : Retirer une utilisateur à la base de donner" + ANSI_RED +" ....WORK IN PROGRESS...." + ANSI_RESET);			//TODO
 		System.out.println("5 :" + ANSI_RED +" Sortir du menu" + ANSI_RESET);
 	}
-
+	/**
+	 * Méthode permettant la lecture d'un client
+	 */
+	public static void readCustomer() { 
+		//TODO
+	} 
+	
+	/**
+	 * Méthode permettant la création d'un nouveau client
+	 */
+	public static void createCustomer() { 
+		//TODO
+	}
+	
+	/**
+	 * Méthode permettant la modification d'un client
+	 */
+	public static void updateCustomer() { 
+		//TODO
+	}
+	
+	/**
+	 * Méthode permettant la suppresion d'un client
+	 */
+	public static void deleteCustomer() { 
+		//TODO
+	}
 }
 
