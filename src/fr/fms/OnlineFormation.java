@@ -18,11 +18,26 @@ public class OnlineFormation {
 
 	public static final String ANSI_RESET = "\u001B[0m";
 	public static final String ANSI_RED = "\u001B[31m";
+	public static final String ANSI_GREEN = "\u001B[32m";
 	public static final String ANSI_YELLOW = "\u001B[33m";
-	public static final String ANSI_BLUE = "\u001B[34m	";
-
+	public static final String ANSI_BLUE = "\u001B[34m";
+	public static final String ANSI_PURPLE = "\u001B[35m";
+	public static final String ANSI_CYAN = "\u001B[36m";
+	public static final String ANSI_WHITE = "\u001B[37m";
+	
+	public static final String ANSI_BLACK_BACKGROUND = "\u001B[40m";
+	public static final String ANSI_RED_BACKGROUND = "\u001B[41m";
+	public static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";
+	public static final String ANSI_YELLOW_BACKGROUND = "\u001B[43m";
+	public static final String ANSI_BLUE_BACKGROUND = "\u001B[44m";
+	public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
+	public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
+	public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
+	
 	private static final String COLUMN_ID = "ID";
 	private static final String COLUMN_NAME = "NOM";
+	private static final String COLUMN_DATE = "DATE";
+	private static final String COLUMN_AMOUNT = "MONTANT";
 	private static final String COLUMN_DURATION = "DUREE";
 	private static final String COLUMN_DESCRIPTION = "DESCRIPTION";
 	private static final String COLUMN_PRICE = "PRIX";
@@ -31,7 +46,9 @@ public class OnlineFormation {
 	private static final String COLUMN_QUANTITY = "QUANTITE";
 
 	public static void main(String[] args) {
-		System.out.println("Bonjour et bienvenu sur le site Online-Formation, voici la liste de nos formations acuellement disponible :\n");
+		System.out.println(ANSI_CYAN_BACKGROUND + ANSI_GREEN + "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
+		System.out.println(ANSI_RED+ "\t\t\t---------------Bonjour et bienvenu sur le site Online-Formation, voici la liste de nos formations acuellement disponible---------------\t\t\t");
+		System.out.println(ANSI_GREEN + "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" + ANSI_RESET);
 		displayFormations();
 		int choice = 0;
 		while(choice != 10) {
@@ -57,8 +74,10 @@ public class OnlineFormation {
 				case 9 : connection();
 					break;
 				case 10 : System.out.println("à bientôt sur notre site :)");
-					break;					
-				default : System.out.println("veuillez saisir une valeur entre 1 et 8");
+					break;	
+				case 11 : displayMenuChoiceAdmin();
+					break;
+				default : System.out.println("veuillez saisir une valeur entre 1 et 10");
 			}
 		}
 	}
@@ -66,11 +85,13 @@ public class OnlineFormation {
 	/**
 	 * Méthode qui affiche tous les formations en base
 	 */
-	public static void displayFormations() { 		
-		System.out.printf("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------%n");
+	public static void displayFormations() { 
+		System.out.print(ANSI_BLACK_BACKGROUND + ANSI_WHITE);
+		System.out.printf("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------%n");
 		System.out.printf("%-10s | %-30s | %-10s | %-70s | %-10s | %-10s | %-10s  %n",COLUMN_ID,COLUMN_NAME,COLUMN_DURATION,COLUMN_DESCRIPTION,COLUMN_PRICE,COLUMN_FACETOFACE,COLUMN_DISTANCIAL);
-		System.out.printf("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------%n");
+		System.out.printf("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------%n");
 		business.readFormations().forEach( a -> System.out.printf("%-10s | %-30s | %-10s | %-70s | %-10s | %-10s | %-10s %n",a.getIdFormation(),a.getNameFormation(),a.getDuration(),a.getDescription(), a.getUnitaryPrice(),a.isFaceToFace(),a.isDistancial()));
+		System.out.print(ANSI_RESET);
 	}
 
 	/**
@@ -99,11 +120,14 @@ public class OnlineFormation {
 		System.out.println("6 : Afficher tous les formations d'une catégorie");
 		System.out.println("7 : Afficher tous les formations ayant le mot clé en nom");
 		System.out.println("8 : Afficher tous les formations ayant le mot clé en description");
-		System.out.println("9 : Connexion(Deconnexion) à votre compte");
-		System.out.println("10 : sortir de l'application");
-
+		if(login != null) {
+			System.out.println("9 : Deconnexion à votre compte");
+		} else {
+			System.out.println("9 : Connexion à votre compte");
+		}
+		System.out.println("10 :" + ANSI_RED +" Sortir de l'application" + ANSI_RESET);
 	}
-
+	
 	/**
 	 * Méthode qui affiche toutes les catégories
 	 */
@@ -112,7 +136,6 @@ public class OnlineFormation {
 		System.out.printf("%-10s | %-30s | %-80s | %n",COLUMN_ID,COLUMN_NAME,COLUMN_DESCRIPTION);
 		System.out.printf("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------%n");
 		business.readCategories().forEach( a -> System.out.printf("%-10s | %-30s | %-80s | %n",a.getIdCategory(),a.getNameCategory(),a.getDescription()));
-
 	}
 
 	/**
@@ -299,6 +322,7 @@ public class OnlineFormation {
 			e.printStackTrace();
 		}
 	}
+	
 	/**
 	 * 
 	 * @param email verifie si l'email est correctement créer
@@ -344,4 +368,232 @@ public class OnlineFormation {
 			formations.forEach( a -> System.out.printf("%-10s | %-30s | %-10s | %-70s | %-10s | %-10s | %-10s | %-10s %n",a.getIdFormation(),a.getNameFormation(),a.getDuration(),a.getDescription(), a.getUnitaryPrice(),a.isFaceToFace(),a.isDistancial(),a.getQuantity()));		
 		}
 	}
+	/**
+	 * Méthode qui affiche le menu gestion admin
+	 */
+	public static void displayMenuChoiceAdmin() {	
+		int choiceAdmin = 0;
+		while(choiceAdmin != 5) {
+			displayMenuAdmin();
+			choiceAdmin = scanInt();
+			switch(choiceAdmin) {
+				case 1 : displayMenuChoiceFormations();
+					break;
+				case 2 : displayMenuChoiceCategories();
+					break;
+				case 3 : displayMenuChoiceOrders();
+					break;
+				case 4 : displayMenuChoiceCustomers();
+					break;
+				case 5 : System.out.println("Retour au menu principal");
+					break;
+				default : System.out.println("veuillez saisir une valeur entre 1 et 5");
+			}
+		}	
+	}
+	
+	/**
+	 * Méthode qui affiche le menu gestion admin
+	 */
+	public static void displayMenuAdmin() {	
+		System.out.println("\n" + "Pour réaliser une action, tapez le code correspondant");
+		System.out.println("1 : Gestion des formations");
+		System.out.println("2 : Gestion des catégories");
+		System.out.println("3 : Gestions des commandes");
+		System.out.println("4 : Gestions des utilisateurs");
+		System.out.println("5 :" + ANSI_RED +" Sortir du menu" + ANSI_RESET);
+	}
+	
+	/**
+	 * Méthode qui affiche le menu gestion admin formation
+	 */
+	public static void displayMenuChoiceFormations() {	
+		int choiceFormation = 0;
+		while(choiceFormation != 5) {
+			displayMenuFormations();
+			choiceFormation = scanInt();
+			switch(choiceFormation) {
+				case 1 : displayFormations();
+					break;
+				case 2 : createFormation();
+					break;
+				case 3 : updateFormation();
+					break;
+				case 4 : 
+					break;
+				case 5 : System.out.println("Retour au menu administration");
+					break;
+				default : System.out.println("veuillez saisir une valeur entre 1 et 5");
+			}	
+		}
+	}
+	
+	/**
+	 * Méthode qui affiche le menu gestion formation
+	 */
+	public static void displayMenuFormations() {	
+		System.out.println("\n" + "Pour réaliser une action, tapez le code correspondant");
+		System.out.println("1 : Voir toutes les formations de la base de donner");
+		System.out.println("2 : Ajouter une formation à la base de donner");
+		System.out.println("3 : Modifier une formation à la base de donner");
+		System.out.println("4 : Retirer une formation à la base de donner");
+		System.out.println("5 :" + ANSI_RED +" Sortir du menu" + ANSI_RESET);
+	}
+	
+	/**
+	 * Méthode permetant la création d'une nouvelle formation
+	 */
+	public static void createFormation() { 
+		scan.nextLine();
+		System.out.println("Indiquez le nom de la nouvelle formation");
+		String nameForm = scan.nextLine();
+		System.out.println("Indiquer une description de la nouvelle formation");
+		String Descript = scan.nextLine();
+		System.out.println("Indiquer la durée de la nouvelle formation");
+		int duration = scanInt();
+		System.out.println("La nouvelle formation est t-elle en présentiel ?   oui / non");
+		String face = scan.next();
+		System.out.println("La nouvelle formation est t-elle en distanciel ?   oui / non");
+		String Dist = scan.next();
+		System.out.println("Indiquer le prix de la nouvelle formation");
+		double price = scan.nextDouble();
+		boolean faceToFace = false;
+		boolean Distancial = false;
+		if(face.equalsIgnoreCase("oui")) faceToFace = true;
+		if(Dist.equalsIgnoreCase("oui")) Distancial = true;
+		Formation form = new Formation(nameForm,Descript,duration,faceToFace,Distancial,price);
+		business.createFormation(form);
+	}
+	public static void updateFormation() {
+		System.out.println("Indiquer l'id de la formation à modifier");
+		int update = scanInt();
+		business.updateFormation(update);
+	}
+	
+	/**
+	 * Méthode qui affiche le menu gestion admin catégories
+	 */
+	public static void displayMenuChoiceCategories() {	
+		int choicecategory = 0;
+		while(choicecategory != 5) {
+			displayMenuCategories();
+			choicecategory = scanInt();
+			switch(choicecategory) {
+				case 1 : displayCategories();
+					break;
+				case 2 : 
+					break;
+				case 3 : 
+					break;
+				case 4 : 
+					break;
+				case 5 : System.out.println("Retour au menu administration");
+					break;
+				default : System.out.println("veuillez saisir une valeur entre 1 et 5");
+			}
+		}
+	}
+	
+	/**
+	 * Méthode qui affiche le menu gestion formation
+	 */
+	public static void displayMenuCategories() {	
+		System.out.println("\n" + "Pour réaliser une action, tapez le code correspondant");
+		System.out.println("1 : Voir toutes les catégories de la base de donner");
+		System.out.println("2 : Ajouter une catégorie à la base de donner");
+		System.out.println("3 : Modifier une catégorie à la base de donner");
+		System.out.println("4 : Retirer une catégorie à la base de donner");
+		System.out.println("5 :" + ANSI_RED +" Sortir du menu" + ANSI_RESET);
+	}
+	
+	/**
+	 * Méthode qui affiche le menu gestion admin commandes
+	 */
+	public static void displayMenuChoiceOrders() {	
+		int choiceOrder = 0;
+		while(choiceOrder != 3) {
+			displayMenuOrders();
+			choiceOrder = scanInt();
+			switch(choiceOrder) {
+				case 1 : displayOrders();			
+					break;
+				case 2 : displayDetailOrders();			
+					break;
+				case 3 : System.out.println("Retour au menu administration");			
+					break;
+				default : System.out.println("veuillez saisir une valeur entre 1 et 3");		
+			}
+		}
+	}
+	
+	/**
+	 * Méthode qui affiche le menu gestion commandes
+	 */
+	public static void displayMenuOrders() {	
+		System.out.println("\n" + "Pour réaliser une action, tapez le code correspondant");
+		System.out.println("1 : Voir toutes les commandes de la base de donner");
+		System.out.println("2 : Voir le detail d'une commande");	
+		System.out.println("4 :" + ANSI_RED +" Sortir du menu" + ANSI_RESET);
+	}
+	
+	/**
+	 * Méthode qui affiche tous les commandes en base
+	 */
+	public static void displayOrders() { 
+		System.out.printf("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------%n");
+		System.out.printf("%-10s | %-20s | %-20s | %-20s  %n",COLUMN_ID,COLUMN_NAME,COLUMN_AMOUNT,COLUMN_DATE);
+		System.out.printf("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------%n");
+		business.readOrders().forEach( a -> System.out.printf("%-10s | %-20s | %-20s | %-20s %n",a.getIdOrder(), a.getName(), a.getAmount(), a.getDate()));
+	}
+	
+	/**
+	 * Méthode pour voir le détail d'une commande
+	 */
+	public static void displayDetailOrders() { 
+		System.out.println("Indique l'id de la commande");
+		int idchoice = scanInt();
+		System.out.println("Commande n° "+ ANSI_CYAN + business.readOneOrder(idchoice).getIdOrder() + ANSI_RESET + " , au nom de : " + ANSI_CYAN +  business.readOneOrder(idchoice).getName() + ANSI_RESET + " , pour un montant de :" + ANSI_CYAN + business.readOneOrder(idchoice).getAmount() + "€" + ANSI_RESET);
+		System.out.printf("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------%n");
+		System.out.printf("%-10s | %-20s | %-20s | %-20s  %n",COLUMN_ID,COLUMN_NAME,COLUMN_PRICE,COLUMN_QUANTITY);
+		System.out.printf("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------%n");
+		business.detailOrders(idchoice).forEach( a -> System.out.printf("%-10s | %-20s | %-20s | %-20s %n",a.getIdOrderItem(), a.getNameFormation(), a.getUnitaryPrice(), a.getQuantity()));
+	}
+	
+	/**
+	 * Méthode qui affiche le menu gestion admin utilisateurs
+	 */
+	public static void displayMenuChoiceCustomers() {	
+		int choiceUser = 0;
+		while(choiceUser != 5) {
+			displayMenuCustomers();
+			choiceUser = scanInt();
+			switch(choiceUser) {
+				case 1 : 
+					break;
+				case 2 : 
+					break;
+				case 3 : 
+					break;
+				case 4 : 
+					break;
+				case 5 : System.out.println("Retour au menu administration");
+					break;
+				default : System.out.println("veuillez saisir une valeur entre 1 et 5");
+			}
+		}
+	}
+	
+	/**
+	 * Méthode qui affiche le menu gestion utilisateurs
+	 */
+	public static void displayMenuCustomers() {	
+		System.out.println("\n" + "Pour réaliser une action, tapez le code correspondant");
+		System.out.println("1 : Voir toutes les utilisateurs de la base de donner");
+		System.out.println("2 : Ajouter une utilisateur à la base de donner");
+		System.out.println("3 : Modifier une utilisateur à la base de donner");
+		System.out.println("4 : Retirer une utilisateur à la base de donner");
+		System.out.println("5 :" + ANSI_RED +" Sortir du menu" + ANSI_RESET);
+	}
+
 }
+

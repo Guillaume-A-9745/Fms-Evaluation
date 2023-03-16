@@ -12,7 +12,7 @@ public class CustomerDao implements Dao<Customer> {
 
 	@Override
 	public boolean create(Customer obj) {
-		String str = "INSERT INTO T_Customers (Name,FirstName,Email,Phone,address,idUser) VALUES (?,?,?,?,?,?);";
+		String str = "INSERT INTO T_Customers (Name,FirstName,Email,Phone,Address,IdUser) VALUES (?,?,?,?,?,?);";
 		try (PreparedStatement ps = connection.prepareStatement(str,Statement.RETURN_GENERATED_KEYS)){
 			ps.setString(1, obj.getName());
 			ps.setString(2, obj.getFirstName());			
@@ -71,8 +71,8 @@ public class CustomerDao implements Dao<Customer> {
 					String fisrtName = resultSet.getString(3);
 					String email = resultSet.getString(4);
 					String tel = resultSet.getString(5);
-					String address = resultSet.getString(5);
-					int idUser = resultSet.getInt(6);
+					String address = resultSet.getString(6);
+					int idUser = resultSet.getInt(7);
 					customers.add((new Customer(idCustomer,name,fisrtName,email,tel,address,idUser)));						
 				}	
 			}

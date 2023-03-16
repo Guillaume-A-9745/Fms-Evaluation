@@ -7,6 +7,7 @@ public class OrderItem {
 	private int quantity;
 	private double unitaryPrice;
 	private int idOrder;
+	private String NameFormation;
 
 	public OrderItem(int idOrderItem, int idFormation, int quantity, double unitaryPrice, int idOrder) {
 		this.idOrderItem = idOrderItem;
@@ -15,7 +16,12 @@ public class OrderItem {
 		this.unitaryPrice = unitaryPrice;
 		this.idOrder = idOrder;
 	}
-
+	public OrderItem(int idOrderItem, String NameFormation, int quantity, double unitaryPrice) {
+		this.idOrderItem = idOrderItem;
+		this.NameFormation = NameFormation;
+		this.quantity = quantity;
+		this.unitaryPrice = unitaryPrice;
+	}
 	public int getIdOrderItem() {
 		return idOrderItem;
 	}
@@ -46,4 +52,16 @@ public class OrderItem {
 	public void setIdOrder(int idOrder) {
 		this.idOrder = idOrder;
 	}
+	public String getNameFormation() {
+		return NameFormation;
+	}
+	public void setNameFormation(String nameFormation) {
+		NameFormation = nameFormation;
+	}
+	
+	@Override
+	public String toString() {
+		return "Id: " + idOrderItem + ", Id formation: " + idFormation +", Quantité: " + quantity + ", Prix: " + unitaryPrice + ", Id de la commande: " + idOrder;
+	}
+		
 }

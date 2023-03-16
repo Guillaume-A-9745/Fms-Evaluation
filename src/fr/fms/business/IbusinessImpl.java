@@ -1,11 +1,14 @@
 package fr.fms.business;
 
 import java.util.Date;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import fr.fms.dao.Dao;
 import fr.fms.dao.DaoFactory;
+import fr.fms.dao.OrderDao;
+import fr.fms.dao.OrderItemDao;
 import fr.fms.dao.FormationDao;
 import fr.fms.entities.Category;
 import fr.fms.entities.Customer;
@@ -36,7 +39,6 @@ public class IbusinessImpl implements Ibusiness {
 		} else {
 			cart.put(formation.getIdFormation(), formation);
 		}
-		
 	}
 
 	@Override
@@ -130,5 +132,24 @@ public class IbusinessImpl implements Ibusiness {
 			if((form.getDescription().toLowerCase()).contains(searchName.toLowerCase()))
 				formationsTrue.add(form);
 		return formationsTrue;	
+	}
+	
+	public ArrayList<Order> readOrders() {
+		return ((OrderDao) orderDao).readAllOrder();
+	}
+	public ArrayList<OrderItem> detailOrders(int id) {
+		return ((OrderItemDao) orderItemDao).readAllById(id);
+	}
+	public Order readOneOrder(int id) {
+		return ((OrderDao) orderDao).readOrderWithCustomer(id);
+	}
+
+	public void createFormation(Formation form) {
+		formationDao.create(form);
+	}
+
+	public void updateFormation(int update) {
+		formationDao.update(null);
+		
 	}
 }

@@ -45,4 +45,5 @@ public interface Dao<T> {
 	 * @return ArrayList<T> correspondant 
 	 */
 	public ArrayList<T> readAll();
+
 }

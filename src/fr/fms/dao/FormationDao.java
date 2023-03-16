@@ -12,7 +12,7 @@ public class FormationDao implements Dao<Formation> {
 
 	@Override
 	public boolean create(Formation obj) {
-		String str = "INSERT INTO T_Formations (NameFormation, Description, Duration, FaceToFace, Distancial, UnitaryPrice, IdCategory) VALUES (?,?,?,?);";	
+		String str = "INSERT INTO T_Formations (NameFormation, Description, Duration, FaceToFace, Distancial, UnitaryPrice, IdCategory) VALUES (?,?,?,?,?,?,?);";	
 		try (PreparedStatement ps = connection.prepareStatement(str)){
 			ps.setString(1, obj.getNameFormation());
 			ps.setString(2, obj.getDescription());
@@ -42,7 +42,7 @@ public class FormationDao implements Dao<Formation> {
 
 	@Override
 	public boolean update(Formation obj) {
-		String str = "UPDATE T_Formations set NameFormation=? Description=? Duration=? FaceToFace=? Distancial=? UnitaryPrice=? IdCategory=? where IdFormation=?;";	
+		String str = "UPDATE T_Formations set NameFormation=?, Description=?, Duration=?, FaceToFace=?, Distancial=?, UnitaryPrice=?, IdCategory=? where IdFormation=?;";	
 		try (PreparedStatement ps = connection.prepareStatement(str)){				
 			ps.setString(1, obj.getNameFormation());
 			ps.setString(2, obj.getDescription());
@@ -83,7 +83,7 @@ public class FormationDao implements Dao<Formation> {
 				}	
 			}
 		} catch (SQLException e) {
-			logger.severe("pb sql sur l'affichage des articles " + e.getMessage());
+			logger.severe("pb sql sur l'affichage des formations " + e.getMessage());
 		}	
 		catch (Exception e) {
 			logger.severe("pb : " + e.getMessage());
@@ -101,7 +101,7 @@ public class FormationDao implements Dao<Formation> {
 				}	
 			}
 		} catch (SQLException e) {
-			logger.severe("pb sql sur l'affichage des articles par catégories " + e.getMessage());
+			logger.severe("pb sql sur l'affichage des formations par catégories " + e.getMessage());
 		}
 		return formations;
 	}

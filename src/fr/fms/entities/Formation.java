@@ -14,7 +14,6 @@ public class Formation {
 	private double unitaryPrice;
 	private int idCategory;
 	private int quantity = 1;
-	public static final int MAX_STRING_LENGTH = 20;
 
 	public Formation(int idFormation, String nameFormation, String description, int duration, boolean faceToFace, boolean distancial, double unitaryPrice, int idCategory) {
 		this.idFormation = idFormation;
@@ -34,6 +33,25 @@ public class Formation {
 		this.faceToFace = faceToFace;
 		this.distancial = distancial;
 		this.unitaryPrice = unitaryPrice;
+		this.idCategory = 0;
+	}
+	public Formation(String nameFormation, String description, int duration, boolean faceToFace, boolean distancial, double unitaryPrice, int idCategory) {
+		this.nameFormation = nameFormation;
+		this.description = description;
+		this.duration = duration;
+		this.faceToFace = faceToFace;
+		this.distancial = distancial;
+		this.unitaryPrice = unitaryPrice;
+		this.idCategory = idCategory;
+	}
+	public Formation(String nameFormation, String description, int duration, boolean faceToFace, boolean distancial, double unitaryPrice) {
+		this.nameFormation = nameFormation;
+		this.description = description;
+		this.duration = duration;
+		this.faceToFace = faceToFace;
+		this.distancial = distancial;
+		this.unitaryPrice = unitaryPrice;
+		this.idCategory = 9;
 	}
 	public int getIdFormation() {
 		return idFormation;
@@ -93,19 +111,12 @@ public class Formation {
 	@Override
 	public String toString() {
 		if (faceToFace && !distancial) {
-			return centerString(String.valueOf(nameFormation)) + centerString(String.valueOf(duration)) + centerString(String.valueOf(unitaryPrice)) + centerString(String.valueOf("   X   ")) + centerString(String.valueOf("")); 
+			return idFormation +"\t"+ nameFormation +"\t\t\t"+ duration +"\t\t\t"+ description +"\t"+ unitaryPrice +"\t"+ "Présenciel:   oui   "+ "Distanciel:   non   "; 
 		} else if (!faceToFace && distancial) {
-			return centerString(String.valueOf(nameFormation)) + centerString(String.valueOf(duration)) + centerString(String.valueOf(unitaryPrice)) + centerString(String.valueOf("")) + centerString(String.valueOf("   X   ")); 
+			return idFormation +"\t"+ nameFormation +"\t\t\t"+ duration +"\t\t\t"+ description +"\t"+ unitaryPrice +"\t"+ "Présenciel:   non   "+ "Distanciel:   oui   "; 
 		} else {
-			return centerString(String.valueOf(nameFormation)) + centerString(String.valueOf(duration)) + centerString(String.valueOf(unitaryPrice)) + centerString(String.valueOf("   X   ")) + centerString(String.valueOf("   X   ")); 
+			return idFormation +"\t"+ nameFormation +"\t\t\t"+ duration +"\t\t\t"+ description +"\t"+ unitaryPrice +"\t"+ "Présenciel:   oui   "+ "Distanciel:   oui   "; 
 		}
 
-	}
-	public static String centerString(String str) {
-		if(str.length() >= MAX_STRING_LENGTH) return str;
-		String dest = "                         ";
-		int deb = (MAX_STRING_LENGTH - str.length())/2 ;
-		String data = new StringBuilder(dest).replace( deb, deb + str.length(), str ).toString();
-		return data;
 	}
 }

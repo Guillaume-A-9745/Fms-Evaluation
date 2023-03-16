@@ -14,19 +14,25 @@ CREATE TABLE T_Users (
 	Password			varchar(20)	NOT NULL
 ) ENGINE = InnoDB;
 
+INSERT INTO T_Users (IdUser, Login, Password) VALUES ( 1, 'Curie' ,	'Marie' );
+INSERT INTO T_Users (IdUser, Login, Password) VALUES ( 2, 'Cesar',	'Jules' );
+INSERT INTO T_Users (IdUser, Login, Password) VALUES ( 3, 'Shakespeare', 'William' );
+INSERT INTO T_Users (IdUser, Login, Password) VALUES ( 4, 'Einstein', 'Albert' );
+INSERT INTO T_Users (IdUser, Login, Password) VALUES ( 5, 'Ghandi', 'Indira' );
+
 -- -----------------------------------------------------------------------------
 -- - Construction de la table des clients	                                 ---
 -- -----------------------------------------------------------------------------
 
 CREATE TABLE T_Customers (
 	IdCustomer				int(4)		PRIMARY KEY AUTO_INCREMENT,
-	name					varchar(30)	NOT NULL,
-	firstName				varchar(30)	NOT NULL,
-	email 					varchar(30)	NOT NULL unique,
-	phone 					varchar(20)	,
-	address					varchar(50)	,
-	idUser					int(4)		NOT NULL,
-	FOREIGN KEY (idUser)	REFERENCES T_Users(idUser)
+	Name					varchar(30)	NOT NULL,
+	FirstName				varchar(30)	NOT NULL,
+	Email 					varchar(30)	NOT NULL unique,
+	Phone 					varchar(20)	,
+	Address					varchar(50)	,
+	IdUser					int(4)		NOT NULL,
+	FOREIGN KEY (IdUser)	REFERENCES T_Users(IdUser)
 ) ENGINE = InnoDB;
 
 
@@ -64,7 +70,7 @@ CREATE TABLE T_Formations (
 	FaceToFAce  			boolean 	 NOT NULL,
 	Distancial 				boolean 	 NOT NULL,
 	UnitaryPrice			float(8)	 NOT NULL,
-	IdCategory				int(4),
+	IdCategory				int(4), 
 	FOREIGN KEY (IdCategory)	REFERENCES T_Categories(IdCategory)
 ) ENGINE = InnoDB;
 
@@ -124,3 +130,39 @@ CREATE TABLE T_Order_Items (
 -- CREATE USER 'Guillaume'@'Localhost' IDENTIFIED BY 'Wing*993';
 -- GRANT ALL PRIVILEGES ON OnlineFormation.* TO 'Guillaume'@'localhost';
 -- FLUSH PRIVILEGES;
+
+
+-- -----------------------------------------------------------------------------
+-- - Construction de la table rôle                              ---
+-- -----------------------------------------------------------------------------
+CREATE TABLE T_Roles (
+	IdRole	 		int(4) 	 	 PRIMARY KEY AUTO_INCREMENT,
+	Role 	    	VARCHAR(30)  NOT NULL,
+	Advantage  		FLOAT(4) 	 NOT NULL DEFAULT 0
+) ENGINE = InnoDB;
+
+insert into T_Roles (IdRole, Role, Advantage) values (1, 'Client', 0);
+insert into T_Roles (IdRole, Role, Advantage) values (2, 'Client premium', 10);
+insert into T_Roles (IdRole, Role, Advantage) values (3, 'Client golden', 15);
+insert into T_Roles (IdRole, Role, Advantage) values (4, 'Admin', 15);
+insert into T_Roles (IdRole, Role, Advantage) values (5, 'SuperAdmin', 15);
+
+select * from T_Roles;
+
+-- -----------------------------------------------------------------------------
+-- - Construction de la table user-rôle                              ---
+-- -----------------------------------------------------------------------------
+CREATE TABLE T_UserRoles (
+	IdUser	  		int(4)  	NOT NULL,
+	FOREIGN KEY(IdUser) REFERENCES T_Users(IdUser),
+	IdRole	 		int(4) 		NOT NULL DEFAULT 1,
+	FOREIGN KEY(IdRole) REFERENCES T_Roles(IdRole)
+) ENGINE = InnoDB;
+
+INSERT INTO T_UserRoles (IdUser, IdRole) VALUES ( 1, 5);
+INSERT INTO T_UserRoles (IdUser, IdRole) VALUES ( 2, 4 );
+INSERT INTO T_UserRoles (IdUser, IdRole) VALUES ( 3, 1 );
+INSERT INTO T_UserRoles (IdUser, IdRole) VALUES ( 4, 2 );
+INSERT INTO T_UserRoles (IdUser, IdRole) VALUES ( 5, 3 );
+
+select * from T_UserRoles;
