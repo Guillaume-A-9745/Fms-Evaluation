@@ -118,6 +118,8 @@ public class Test {
 		
 		System.out.println("'-------------------------------------'");
 		
-		
+//		SELECT * FROM T_Formations INNER JOIN T_Categories ON T_Formations.IdCategory = T_Categories.IdCategory
+//		INSERT INTO T_Formations (NameFormation, Description, Duration, FaceToFace, Distancial, UnitaryPrice, IdCategory) VALUES ('Java Avance','Exceptions, fichiers, Jdbc, thread...',20,true,false,799,1);
+//		UPDATE T_Formations set NameFormation='Java Avance', Description='Exceptions, fichiers, Jdbc, thread...', Duration=20, FaceToFace=true, Distancial=false, UnitaryPrice=1880, IdCategory=1 where IdFormation=26;
 	}
 }

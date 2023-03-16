@@ -80,6 +80,7 @@ public class IbusinessImpl implements Ibusiness {
 	 * Méthode pour retourner toutes les formations avec les les catégories liées
 	 */
 	public ArrayList<Formation> readFormationsCategory() {
+		//return formationDao.readAll();
 		return ((FormationDao)formationDao).readFormationsCategory();
 	}
 
@@ -115,10 +116,16 @@ public class IbusinessImpl implements Ibusiness {
 		cart.clear();		
 	}
 
+	/**
+	 * Méthode qui affiche tous les formations par catégorie 
+	 */
 	public Category readOneCategory(int id) {
 		return categoryDao.read(id);
 	}
 
+	/**
+	 * Méthode qui retourne toutes les formation ayant le mots clés en param dans leur nom
+	 */
 	public ArrayList<Formation> KeywordFormationInName(String searchName) {
 		ArrayList<Formation> formations = new ArrayList<Formation>();
 		ArrayList<Formation> formationsTrue = new ArrayList<Formation>();
@@ -129,6 +136,9 @@ public class IbusinessImpl implements Ibusiness {
 		return formationsTrue;	
 	}
 
+	/**
+	 * Méthode qui retourne toutes les formation ayant le mots clés en param dans leur description
+	 */
 	public ArrayList<Formation> KeywordFormationInDescription(String searchName) {
 		ArrayList<Formation> formations = new ArrayList<Formation>();
 		ArrayList<Formation> formationsTrue = new ArrayList<Formation>();
@@ -148,12 +158,26 @@ public class IbusinessImpl implements Ibusiness {
 	public Order readOneOrder(int id) {
 		return ((OrderDao) orderDao).readOrderWithCustomer(id);
 	}
-
+	
+	/**
+	 * Méthode permettant la création d'une nouvelle formation
+	 */
 	public void createFormation(Formation form) {
 		formationDao.create(form);
 	}
 
+	/**
+	 * Méthode permettant la modification d'une formation
+	 */
 	public void updateFormation(Formation form) {
 		formationDao.update(form);
+	}
+	
+	/**
+	 * Méthode permettant la suppression d'une formation
+	 */
+	public void deleteFormation(Formation form) {
+		formationDao.delete(form);
+		
 	}
 }

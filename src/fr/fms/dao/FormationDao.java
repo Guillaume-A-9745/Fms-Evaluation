@@ -93,11 +93,11 @@ public class FormationDao implements Dao<Formation> {
 
 	public ArrayList<Formation> readFormationsCategory() {
 		ArrayList<Formation> formations = new ArrayList<Formation>();
-		String strSql = "SELECT IdFormation, NameFormation, T_Formations.Description, Duration, FaceToFace, Distancial, UnitaryPrice, NameCategory FROM T_Formations INNER JOIN T_Categories ON T_Formations.IdCategory = T_Categories.IdCategory";		
+		String strSql = "SELECT * FROM T_Formations INNER JOIN T_Categories ON T_Formations.IdCategory = T_Categories.IdCategory";		
 		try(Statement statement = connection.createStatement()){	
 			try(ResultSet rs = statement.executeQuery(strSql)){ 	
 				while(rs.next()) {		
-					formations.add(new Formation(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4) , rs.getBoolean(5), rs.getBoolean(6), rs.getDouble(7), rs.getString(8)));	
+					formations.add(new Formation(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4) , rs.getBoolean(5), rs.getBoolean(6), rs.getDouble(7), rs.getString(10)));	
 				}	
 			}
 		} catch (SQLException e) {

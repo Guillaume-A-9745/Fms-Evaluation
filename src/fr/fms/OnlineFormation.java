@@ -420,7 +420,7 @@ public class OnlineFormation {
 					break;
 				case 3 : updateFormation();
 					break;
-				case 4 : //TODO
+				case 4 : deleteFormation();
 					break;
 				case 5 : System.out.println("Retour au menu administration");
 					break;
@@ -436,13 +436,13 @@ public class OnlineFormation {
 		System.out.println("\n" + "Pour réaliser une action, tapez le code correspondant");
 		System.out.println("1 : Voir toutes les formations de la base de donner");
 		System.out.println("2 : Ajouter une formation à la base de donner");  
-		System.out.println("3 : Modifier une formation à la base de donner" + ANSI_RED +" ....WORK IN PROGRESS...." + ANSI_RESET); //TODO
-		System.out.println("4 : Retirer une formation à la base de donner" + ANSI_RED +" ....WORK IN PROGRESS...." + ANSI_RESET);  //TODO
+		System.out.println("3 : Modifier une formation à la base de donner" + ANSI_RED +" ....WORK IN PROGRESS...." + ANSI_RESET);
+		System.out.println("4 : Retirer une formation à la base de donner" + ANSI_RED +" ....WORK IN PROGRESS...." + ANSI_RESET);
 		System.out.println("5 :" + ANSI_RED +" Sortir du menu" + ANSI_RESET);
 	}
 	
 	/**
-	 * Méthode permetant la création d'une nouvelle formation
+	 * Méthode permettant la création d'une nouvelle formation
 	 */
 	public static void createFormation() { 
 		scan.nextLine();
@@ -467,6 +467,10 @@ public class OnlineFormation {
 		Formation form = new Formation(nameForm,Descript,duration,faceToFace,Distancial,price,idCat);
 		business.createFormation(form);
 	}
+	
+	/**
+	 * Méthode permettant la modification d'une formation
+	 */
 	public static void updateFormation() {
 		System.out.println("Indiquer l'id de la formation à modifier");
 		int idForm = scanInt();
@@ -492,6 +496,15 @@ public class OnlineFormation {
 		if(dist.equalsIgnoreCase("oui")) distancial = true;
 		Formation form = new Formation(idForm,nameForm,descript,duration,faceToFace,distancial,price,idCat);
 		business.updateFormation(form);
+	}
+	/**
+	 * Méthode permettant la suppression d'une formation
+	 */
+	public static void deleteFormation() {
+		System.out.println("Indiquer l'id de la formation à supprimer");
+		int idForm = scanInt();
+		Formation form = new Formation(idForm,"","",0,true,true,0,0);
+		business.deleteFormation(form);
 	}
 	
 	/**
